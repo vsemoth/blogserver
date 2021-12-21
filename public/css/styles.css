@@ -1,3 +1,32 @@
 .pull-right {
     float: right;
 }
+
+.pills{
+    display: flex;
+}
+
+.list-group {
+    flex-direction: row;
+    display: inline-flex;
+    width: fit-content;
+}
+
+.col-md-12 {
+    max-width: 100%;
+}
+
+.col-md-8 p {
+    max-width: fit-content;
+}
+
+p img {
+    max-width: 100%;
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 767px) {
+    body {
+      width: fit-content;
+    }
+  }
