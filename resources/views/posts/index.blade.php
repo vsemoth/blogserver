@@ -13,21 +13,21 @@
             @csrf
                 <input type="hidden" name="_method" value="patch" />
                 <input type="hidden" name="published" value=1 />
-                <button class="btn btn-success btn-lg" type="submit">Publish</button>
+                <button class="btn btn-success btn-sm" type="submit">Publish</button>
             </form>
             @elseif($post->published == 1)
             <form style="margin: 0 15px;" class="pull-right" action="{{ route('posts.publish', $post->id) }}" method="post">
             @csrf
                 <input type="hidden" name="_method" value="patch" />
                 <input type="hidden" name="published" value=0 />
-                <button class="btn btn-danger btn-lg" type="submit">Unpublish</button>
+                <button class="btn btn-danger btn-sm" type="submit">Unpublish</button>
             </form>
             @endif
-            <a style="margin-left: 90px;" class="btn btn-warning btn-lg mt-3" href="{{ route('posts.edit',$post->id) }}">Edit</a>
+            <a style="margin-left: 90px;" class="btn btn-warning btn-sm mt-3" href="{{ route('posts.edit',$post->id) }}">Edit</a>
             <form class="pull-right" action="{{ route('posts.destroy', $post->id) }}" method="post">
             @csrf
                 <input type="hidden" name="_method" value="delete" />
-                <button class="btn btn-danger btn-lg" type="submit">DELETE</button>
+                <button class="btn btn-danger btn-sm" type="submit">DELETE</button>
             </form>
         </h3>
         <p>
