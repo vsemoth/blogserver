@@ -2,7 +2,7 @@
     "private": true,
 
     "engines" : {
-        "node" : ">=0.12"
+        "node" : ">=17.2.0"
     },
     "scripts": {
         "dev": "npm run development",
