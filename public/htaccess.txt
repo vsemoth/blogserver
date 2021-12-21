@@ -1,0 +1,32 @@
+<IfModule mod_rewrite.c>
+    # Additions for coding PHP in .js
+    # src->https://stackoverflow.com/questions/3241422/include-php-inside-javascript-js-files
+    AddType application/x-httpd-php .js
+
+    AddHandler x-httpd-php5 .js
+
+    <FilesMatch "\.(js|php)$">
+    SetHandler application/x-httpd-php
+    </FilesMatch>
+    
+    # Original Contents
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
