@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ChristpostsController;
+use App\Http\Controllers\EcrpostsController;
+use App\Http\Controllers\SdpostsController;
+use App\Http\Controllers\NewspostsController;
 
 use App\Http\Controllers\PublishPost;
 
@@ -29,4 +33,14 @@ require __DIR__.'/auth.php';
 
 Route::patch('posts/{id}/publish', PublishPost::class)->name('posts.publish');
 
+Route::patch('cposts/{id}/publish', PublishPost::class)->name('cposts.publish');
+
 Route::resource('posts', PostController::class);
+
+Route::resource('cposts', ChristpostsController::class);
+
+Route::resource('ecrposts', EcrpostsController::class);
+
+Route::resource('sdposts', SdpostsController::class);
+
+Route::resource('newsposts', NewspostsController::class);

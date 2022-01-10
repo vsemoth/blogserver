@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Christpost;
+use App\Models\Ecrpost;
+use Illuminate\Support\Facades\DB;
 
-
-class ChristpostsController extends Controller
+class EcrpostapiController extends Controller
 {
-    public function __construct() {
-        return $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -19,11 +15,13 @@ class ChristpostsController extends Controller
      */
     public function index()
     {
-        // Get all posts
-        $posts = Christpost::all();
+        // Get all posts in JSON format
+        $posts = Ecrpost::orderBy('created_at', 'desc')->where('published', 1)->get();
+        $jsonposts = json_encode($posts, JSON_PRETTY_PRINT);
+        header('Content-Type: application/json');
 
         // Return index view with posts data
-        return view('cposts.index')->withPosts($posts);
+        return $jsonposts;
     }
 
     /**
@@ -34,7 +32,7 @@ class ChristpostsController extends Controller
     public function create()
     {
         // Return create page for posts
-        return view('cposts.create');
+        return view('posts.create');
     }
 
     /**
@@ -48,29 +46,19 @@ class ChristpostsController extends Controller
         // Validate new post and add to database
         $this->validate($request, [
             'post_title' => 'required|string',
+            'slug' => 'required|alpha_dash',
             'post_content' => 'required|string'
         ]);
 
-        $post = new Christpost;
+        $post = new Ecrpost;
 
         $post->post_title = $request->input('post_title');
-
-        $str = $post->post_title;
-        $sep='-';
-        $res = strtolower($str);
-        $res = preg_replace('/[^[:alnum:]]/', ' ', $res);
-        $res = preg_replace('/[[:space:]]+/', $sep, $res);
-        $slug = trim($res, $sep);
-
-        $post->slug = $slug;
-
+        $post->slug = $request->input('slug');
         $post->post_content = $request->input('post_content');
-
-        // dd($post);
 
         $post->save();
 
-        return redirect()->route('cposts.index');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -79,12 +67,20 @@ class ChristpostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($value='{slug}')
     {
         // Show selected post page
-        $post = Christpost::find($id);
 
-        return view('cposts.show')->withPost($post);
+        // Fetch slug data from database
+        $post = Ecrpost::where('slug', '=', $value)->first();
+
+        // Return view with post object
+        $jsonpost = json_encode($post, JSON_PRETTY_PRINT);
+        header('Content-Type: application/json');
+
+        // Return index view with posts data
+        // return "works";
+        return $jsonpost;
     }
 
     /**
@@ -96,8 +92,6 @@ class ChristpostsController extends Controller
     public function edit($id)
     {
         // Edit selected post
-        $post = Christpost::find($id);
-        return view('cposts.edit')->withPost($post);
     }
 
     /**
@@ -109,38 +103,7 @@ class ChristpostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate selected post and add to database
-        $this->validate($request, [
-            'post_title' => 'required|string',
-            'post_content' => 'required|string'
-        ]);
-
-        // dd($request);
-
         // Update selected post
-
-        $post = Christpost::find($id);
-
-        $post->post_title = $request->input('post_title');
-
-        $str = $post->post_title;
-        $sep='-';
-        $res = strtolower($str);
-        $res = preg_replace('/[^[:alnum:]]/', ' ', $res);
-        $res = preg_replace('/[[:space:]]+/', $sep, $res);
-        $slug = trim($res, $sep);
-
-        $post->slug = $slug;
-
-        $post->post_content = $request->input('post_content');
-
-        // $post->published = $request->input('published');
-
-        // dd($post);
-
-        $post->save();
-
-        return redirect()->route('cposts.show', $post->id);
     }
 
     /**
@@ -152,8 +115,5 @@ class ChristpostsController extends Controller
     public function destroy($id)
     {
         // Delete selected post
-        $post = Christpost::find($id);
-        $post->delete();
-        return back()->with('Success', 'Post' . $post->post_title . ' has been deleted!');
     }
 }
