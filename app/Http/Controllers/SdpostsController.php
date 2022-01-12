@@ -19,7 +19,7 @@ class SdpostsController extends Controller
         $posts = Sdpost::all();
 
         // Return index view with posts data
-        return view('posts.index')->withPosts($posts);
+        return view('sdposts.index')->withPosts($posts);
     }
 
     /**
@@ -30,7 +30,7 @@ class SdpostsController extends Controller
     public function create()
     {
         // Return create page for posts
-        return view('posts.create');
+        return view('sdposts.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class SdpostsController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts.index');
+        return redirect()->route('sdposts.index');
     }
 
     /**
@@ -80,7 +80,7 @@ class SdpostsController extends Controller
         // Show selected post page
         $post = Sdpost::find($id);
 
-        return view('posts.show')->withPost($post);
+        return view('sdposts.show')->withPost($post);
     }
 
     /**
@@ -93,7 +93,7 @@ class SdpostsController extends Controller
     {
         // Edit selected post
         $post = Sdpost::find($id);
-        return view('posts.edit')->withPost($post);
+        return view('sdposts.edit')->withPost($post);
     }
 
     /**
@@ -136,7 +136,7 @@ class SdpostsController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('sdposts.show', $post->id);
     }
 
     /**

@@ -19,7 +19,7 @@ class EcrpostsController extends Controller
         $posts = Ecrpost::all();
 
         // Return index view with posts data
-        return view('posts.index')->withPosts($posts);
+        return view('ecrposts.index')->withPosts($posts);
     }
 
     /**
@@ -30,7 +30,7 @@ class EcrpostsController extends Controller
     public function create()
     {
         // Return create page for posts
-        return view('posts.create');
+        return view('ecrposts.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class EcrpostsController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts.index');
+        return redirect()->route('ecrposts.index');
     }
 
     /**
@@ -80,7 +80,7 @@ class EcrpostsController extends Controller
         // Show selected post page
         $post = Ecrpost::find($id);
 
-        return view('posts.show')->withPost($post);
+        return view('ecrposts.show')->withPost($post);
     }
 
     /**
@@ -93,7 +93,7 @@ class EcrpostsController extends Controller
     {
         // Edit selected post
         $post = Ecrpost::find($id);
-        return view('posts.edit')->withPost($post);
+        return view('ecrposts.edit')->withPost($post);
     }
 
     /**
@@ -136,7 +136,7 @@ class EcrpostsController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('ecrposts.show', $post->id);
     }
 
     /**

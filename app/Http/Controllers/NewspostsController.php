@@ -19,7 +19,7 @@ class NewspostsController extends Controller
         $posts = Newspost::all();
 
         // Return index view with posts data
-        return view('posts.index')->withPosts($posts);
+        return view('newsposts.index')->withPosts($posts);
     }
 
     /**
@@ -30,7 +30,7 @@ class NewspostsController extends Controller
     public function create()
     {
         // Return create page for posts
-        return view('posts.create');
+        return view('newsposts.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class NewspostsController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts.index');
+        return redirect()->route('newsposts.index');
     }
 
     /**
@@ -80,7 +80,7 @@ class NewspostsController extends Controller
         // Show selected post page
         $post = Newspost::find($id);
 
-        return view('posts.show')->withPost($post);
+        return view('newsposts.show')->withPost($post);
     }
 
     /**
@@ -93,7 +93,7 @@ class NewspostsController extends Controller
     {
         // Edit selected post
         $post = Newspost::find($id);
-        return view('posts.edit')->withPost($post);
+        return view('newsposts.edit')->withPost($post);
     }
 
     /**
@@ -136,7 +136,7 @@ class NewspostsController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('newsposts.show', $post->id);
     }
 
     /**
