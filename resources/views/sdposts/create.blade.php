@@ -10,7 +10,7 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
         <h2>Create a New Post</h2>
-    <form action="{{ route('posts.store') }}" method='post' class='mt-3'>
+    <form action="{{ route('sdposts.store') }}" method='post' class='mt-3'>
         <x-forms.tinymce-editor/>
     </form>
                 </div>
