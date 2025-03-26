@@ -17,8 +17,8 @@ class PostapiController extends Controller
     {
         // Get all posts in JSON format
         $posts = Post::orderBy('created_at', 'desc')->where('published', 1)->get();
-        $jsonposts = json_encode($posts, JSON_PRETTY_PRINT);
-        header('Content-Type: application/json');
+        $jsonposts = json_encode($posts);/*, JSON_PRETTY_PRINT);*/
+        // header('Content-Type: application/json');
 
         // Return index view with posts data
         return $jsonposts;

@@ -3,7 +3,7 @@
 @section('title', 'All Posts')
 
 @section('main-content')
-    <div class="col-md-8 offset-2 mt-5">
+    <div class="col-md-8 offset-2 mt-5 pi">
         <h1>Posts' List <a class="btn btn-info pull-right" href="{{ route('posts.create') }}">Create New</a></h1>
         @foreach($posts as $post)
         <div class='col-md-8 mt-5 pills'>
@@ -16,7 +16,7 @@
                     <a class="btn btn-warning btn-sm mt-3" href="{{ route('posts.edit',$post->id) }}">Edit</a>
                 </li>
 
-                <li class="list-group-item">
+                <li class="list-group-item d-inline-block m-0">
                     @if($post->published == 0)
                     <form class="pull-right" action="{{ route('posts.publish', $post->id) }}" method="post">
                     @csrf
